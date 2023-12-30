@@ -1,11 +1,21 @@
 import { useState } from "react";
 import { IScore } from "../types/Score";
 
+const defaultHightScore = Number(localStorage.getItem('hight_score')) || 0;
+
 const useScore = (): IScore => {
   const [score, setScore] = useState<number>(0);
+  const [hightScore, setHightScore] = useState<number>(defaultHightScore);
 
   const handleAddScore = (): void => {
-    setScore(score + 1);
+    const newScore = score + 1;
+
+    if (newScore > hightScore) {
+      setHightScore(newScore);
+      localStorage.setItem('hight_score', String(newScore));
+    }
+
+    setScore(newScore);
   }
 
   const handleResetScore = () => {
@@ -14,6 +24,7 @@ const useScore = (): IScore => {
 
   return {
     current: score,
+    record: hightScore,
     add: handleAddScore,
     reset: handleResetScore
   }

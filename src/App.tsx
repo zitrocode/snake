@@ -4,7 +4,7 @@ import Game from './components/Game';
 import AppContext from './context/AppContext';
 
 const App: React.FC = () => {
-  const { score, player, food } = useContext(AppContext);
+  const { game, score, player, food } = useContext(AppContext);
 
   useEffect(() => {
     if (player.positions.y === food.positions.y) {
@@ -13,12 +13,25 @@ const App: React.FC = () => {
         score.add();
       }
     }
+
+    if (player.positions.y === 0 || player.positions.y === 31) {
+      game.gameOver.end();
+      return;
+    }
+
+    if (player.positions.x === 0 || player.positions.x === 31) {
+      game.gameOver.end();
+      return;
+    }
   }, [player.positions]);
 
   return (
     <div className="container">
       <div className="game--board">
-        <p>Score: {score.current}</p>
+        <div className="game--info">
+          <p>Score: {score.current}</p>
+          <p>Record: {score.record}</p>
+        </div>
 
         <Game />
       </div>

@@ -52,7 +52,7 @@ const usePlayer = (): IPlayer => {
         }
         break;
       case Directions.Down:
-        if (positionY !== 30) {
+        if (positionY !== 31) {
           setPositionY(positionY + 1);
         }
         break;
@@ -62,7 +62,7 @@ const usePlayer = (): IPlayer => {
         }
         break;
       case Directions.Right:
-        if (positionX !== 30) {
+        if (positionX !== 31) {
           setPositionX(positionX + 1)
         }
         break;
